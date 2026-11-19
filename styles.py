@@ -518,13 +518,83 @@ body, .dark body, body.dark { background: #d8c9a6 !important; }
 
 footer { display: none !important; }
 
+/* ================= RESPONSIVE ================= */
+/* Never let anything push the page wider than the screen */
+html, body { overflow-x: hidden; }
+.gradio-container, .gradio-container * { box-sizing: border-box; }
+.gradio-container { width: 100% !important; }
+
+/* Long example prompts wrap instead of overflowing */
+#dr-examples td, #dr-examples button {
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+/* Wide report content scrolls inside itself, not the page */
+#dr-report table { display: block; max-width: 100%; overflow-x: auto; }
+#dr-report pre { max-width: 100%; overflow-x: auto; }
+#dr-report img { max-width: 100%; height: auto; }
+#dr-report a, #dr-report code { overflow-wrap: anywhere; }
+
+/* Tablet */
+@media (max-width: 900px) {
+    .gradio-container {
+        padding: 2rem 1.5rem 2.5rem !important;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+    }
+    #dr-run { min-width: 140px !important; letter-spacing: 0.14em !important; }
+    #dr-report h1 { font-size: 2rem !important; }
+}
+
+/* Phone */
 @media (max-width: 700px) {
-    .gradio-container { padding: 1.5rem 1rem 2rem !important; }
+    .gradio-container { padding: 1.25rem 1rem 2rem !important; font-size: 16px; }
+    .dr-masthead { margin-bottom: 1.5rem; }
+    .dr-topline { font-size: 0.62rem; letter-spacing: 0.12em; }
     .dr-topline-mid { display: none; }
     .dr-flourish { display: none; }
-    .dr-query-row { flex-direction: column !important; }
-    #dr-run { margin: 10px 0 0 !important; width: 100% !important; }
-    #dr-report p { text-align: left; }
+    .dr-ornament-row { padding: 0.9rem 0 0.3rem; }
+    .dr-tagline { font-size: 0.92rem; }
+
+    .dr-query-row { flex-direction: column !important; flex-wrap: nowrap !important; }
+    .dr-query-row > * { width: 100% !important; min-width: 0 !important; flex: none !important; }
+    #dr-query textarea, #dr-query input { font-size: 1rem !important; padding: 0.9rem 1rem !important; }
+    #dr-run {
+        margin: 12px 0 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 0.9rem 1rem !important;
+    }
+    #dr-run:hover { letter-spacing: 0.2em !important; }
+
+    .dr-examples-label { margin: 1.6rem 0 0.75rem; letter-spacing: 0.2em; gap: 0.6rem; }
+    #dr-examples tr { flex-direction: column !important; gap: 8px !important; }
+    #dr-examples td, #dr-examples button { width: 100% !important; font-size: 0.95rem !important; }
+    #dr-examples td:hover, #dr-examples button:hover { transform: none; box-shadow: 2px 2px 0 var(--dr-gold) !important; }
+
+    #dr-report { margin-top: 1.75rem !important; }
+    #dr-report > div, #dr-report .prose { font-size: 1rem !important; }
+    #dr-report h1 { font-size: 1.6rem !important; }
+    #dr-report h2 { font-size: 1.25rem !important; margin-top: 1.6rem !important; }
+    #dr-report h3 { font-size: 0.9rem !important; }
+    #dr-report p { text-align: left; hyphens: manual; }
+    #dr-report h1 + p::first-letter { font-size: 3.2em; }
+    #dr-report blockquote { padding: 0.75rem 1rem; }
+    #dr-report ul, #dr-report ol { padding-left: 1.2rem; }
+
+    .dr-footer { margin-top: 2rem; }
+    .dr-footer p { font-size: 0.6rem; letter-spacing: 0.14em; line-height: 1.7; }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+    .gradio-container { padding: 1rem 0.75rem 1.5rem !important; }
+    .dr-topline { justify-content: center; }
+    .dr-topline > span:last-child { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
