@@ -11,9 +11,19 @@ async def run(query: str):
         async for status_update in ResearchManager().run(query):
             yield status_update
     except Exception as e:
+        # Gemini puts the real reason in the response body, not the exception text
+        detail = ""
+        response = getattr(e, "response", None)
+        if response is not None:
+            try:
+                detail = response.text[:500]
+            except Exception:
+                pass
+        print(f"Research failed: {type(e).__name__}: {e} {detail}", flush=True)
         yield (
             f"**The presses have jammed.** {type(e).__name__}: {e}\n\n"
-            "Gemini is likely busy - please try again in a minute."
+            + (f"`{detail}`\n\n" if detail else "")
+            + "Please try again in a minute."
         )
 
 
